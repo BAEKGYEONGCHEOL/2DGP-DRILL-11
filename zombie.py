@@ -68,9 +68,15 @@ class Zombie:
             game_framework.quit()
         # group이 좀비와 공 사이의 충돌이라면
         elif group == 'zombie:ball' and self.hit_state == False:
+            # 공이 멈춰있으면 함수 종료!
+            if other.stop_state == True:
+                return
             # 1차적으로 좀비 크기 감소
             self.size *= 1/2
             self.hit_state = True
         elif group == 'zombie:ball' and self.hit_state == True:
+            # 공이 멈춰있으면 함수 종료!
+            if other.stop_state == True:
+                return
             # 2차적으로 좀비 제거
             game_world.remove_object(self)

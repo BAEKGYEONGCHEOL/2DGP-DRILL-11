@@ -33,8 +33,8 @@ class Zombie:
         self.load_images()
         self.frame = random.randint(0, 9)
         self.dir = random.choice([-1,1])
-        self.size = 200
-        self.hit_state = False
+        self.size = 200         # 좀비의 크기(공에 맞으면 감소!)
+        self.hit_state = False  # 좀비가 공에 피격 당한 적이 있는지 여부
 
 
     def get_bb(self):

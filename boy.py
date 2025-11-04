@@ -186,6 +186,8 @@ class Boy:
             # 방법1 : 상태를 하나 더 만들어서 처리
             # 소년이 볼을 발사(만들)할 때 소년과 볼의 충돌 쌍 정보를 추가
             game_world.add_collision_pair('boy:ball', None, ball)
+            # 소년이 발사한 볼과 좀비의 충돌 쌍 정보도 추가
+            game_world.add_collision_pair('zombie:ball', None , ball)
 
     def get_bb(self):
         # boy의 상태에 따라서 바운더리 박스를 다르게 하고 싶다면?

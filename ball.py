@@ -49,3 +49,5 @@ class Ball:
         elif group == 'grass:ball':
             # 볼이 잔디 위에서 멈춘다.
             self.stopped = True
+        elif group == 'zombie:ball':
+            game_world.remove_object(self)

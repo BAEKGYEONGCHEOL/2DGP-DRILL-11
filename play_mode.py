@@ -49,9 +49,14 @@ def init():
     zombies = [Zombie() for _ in range(4)]
     game_world.add_objects(zombies, 1)
 
+    # 좀비와 소년 사이에 대한 충돌 검사가 필요하다는 정보를 추가
     game_world.add_collision_pair('boy:zombie', boy, None)
     for zombie in zombies:
         game_world.add_collision_pair('boy:zombie', None, zombie)
+
+    # 좀비와 소년이 발사한 볼 사이의 충돌 검사가 필요하다는 정보 추가
+    for zombie in zombies:
+        game_world.add_collision_pair('zombie:ball', zombie, None)
 
 
 def update():

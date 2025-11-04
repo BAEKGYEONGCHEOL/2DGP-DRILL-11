@@ -15,6 +15,7 @@ class Ball:
         self.xv = throwin_speed * math.cos(math.radians(throwin_angle))  # m/s
         self.yv = abs(throwin_speed * math.sin(math.radians(throwin_angle)))   # m/s
         self.stopped = True if throwin_speed == 0.0 else False
+        self.stop_state = False
 
     def draw(self):
         self.image.draw(self.x, self.y)
@@ -46,8 +47,10 @@ class Ball:
             # 이 작업은 game_world.py 의 game_world.remove_object() 함수에서 처리해 준다.
             game_world.remove_object(self)
         # group이 잔디와 볼 사이의 충돌이라면
-        elif group == 'grass:ball':
+        elif group == 'grass:ball' and self.stop_state == False:
             # 볼이 잔디 위에서 멈춘다.
             self.stopped = True
-        elif group == 'zombie:ball':
+            self.stop_state = True
+        elif group == 'zombie:ball' and self.stop_state == False:
+            # 볼이 좀비와 충돌하면 제거한다.
             game_world.remove_object(self)

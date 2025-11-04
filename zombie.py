@@ -33,10 +33,11 @@ class Zombie:
         self.load_images()
         self.frame = random.randint(0, 9)
         self.dir = random.choice([-1,1])
+        self.size = 200
 
 
     def get_bb(self):
-        return self.x - 100, self.y - 100, self.x + 100, self.y + 100
+        return self.x - self.size / 2, (self.y - (100 - self.size / 2)) - self.size / 2, self.x + self.size / 2, (self.y - (100 - self.size / 2)) + self.size / 2
 
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % FRAMES_PER_ACTION
@@ -51,9 +52,9 @@ class Zombie:
 
     def draw(self):
         if self.dir < 0:
-            Zombie.images['Walk'][int(self.frame)].composite_draw(0, 'h', self.x, self.y, 200, 200)
+            Zombie.images['Walk'][int(self.frame)].composite_draw(0, 'h', self.x, self.y - (100 - self.size / 2), self.size, self.size)
         else:
-            Zombie.images['Walk'][int(self.frame)].draw(self.x, self.y, 200, 200)
+            Zombie.images['Walk'][int(self.frame)].draw(self.x, self.y - (100 - self.size / 2), self.size, self.size)
         draw_rectangle(*self.get_bb())
 
     def handle_event(self, event):
@@ -64,3 +65,7 @@ class Zombie:
         if group == 'boy:zombie':
             # 게임 종료
             game_framework.quit()
+        # group이 좀비와 공 사이의 충돌이라면
+        elif group == 'zombie:ball':
+            # 1차적으로 좀비 크기 감소
+            self.size *= 1/2

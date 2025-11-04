@@ -59,3 +59,8 @@ class Zombie:
     def handle_event(self, event):
         pass
 
+    def handle_collision(self, group, other):
+        # group이 소년과 좀비 사이의 충돌이라면
+        if group == 'boy:zombie':
+            # 게임 종료
+            game_framework.quit()

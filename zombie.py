@@ -34,6 +34,7 @@ class Zombie:
         self.frame = random.randint(0, 9)
         self.dir = random.choice([-1,1])
         self.size = 200
+        self.hit_state = False
 
 
     def get_bb(self):
@@ -66,6 +67,10 @@ class Zombie:
             # 게임 종료
             game_framework.quit()
         # group이 좀비와 공 사이의 충돌이라면
-        elif group == 'zombie:ball':
+        elif group == 'zombie:ball' and self.hit_state == False:
             # 1차적으로 좀비 크기 감소
             self.size *= 1/2
+            self.hit_state = True
+        elif group == 'zombie:ball' and self.hit_state == True:
+            # 2차적으로 좀비 제거
+            game_world.remove_object(self)
